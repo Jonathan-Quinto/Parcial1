@@ -1,0 +1,50 @@
+<resources>
+
+    <string name="app_name">ConversionCapital</string>
+
+    <!-- TITULOS -->
+
+    <string name="titulo_app">Smart Currency Converter</string>
+
+    <!-- HINTS -->
+
+    <string name="hint_monto">Ingrese el monto</string>
+
+    <!-- BOTONES -->
+
+    <string name="btn_convertir">Convertir</string>
+    <string name="btn_limpiar">Limpiar</string>
+    <string name="btn_intercambiar">Intercambiar Monedas</string>
+
+    <!-- TEXTOS -->
+
+    <string name="txt_resultado">Resultado:</string>
+    <string name="txt_moneda_origen">Moneda Origen</string>
+    <string name="txt_moneda_destino">Moneda Destino</string>
+    <string name="txt_sonido">Activar Sonido</string>
+    <string name="txt_seekbar">Nivel de conversión</string>
+
+    <!-- MENSAJES -->
+
+    <string name="msg_ingrese_monto">Ingrese un monto</string>
+    <string name="msg_valor_invalido">
+        Ingrese un valor válido mayor que cero
+    </string>
+
+    <string name="msg_monedas_diferentes">
+        Seleccione monedas diferentes
+    </string>
+
+    <string name="msg_conversion_realizada">
+        Conversión realizada
+    </string>
+
+    <string name="msg_campos_limpiados">
+        Campos limpiados
+    </string>
+
+    <string name="msg_monedas_intercambiadas">
+        Monedas intercambiadas
+    </string>
+
+</resources>
