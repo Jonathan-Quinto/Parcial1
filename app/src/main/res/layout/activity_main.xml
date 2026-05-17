@@ -27,16 +27,6 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <!-- IMAGEN -->
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:contentDescription="@string/app_name"
-            android:src="@mipmap/ic_launcher" />
 
         <!-- CARD PRINCIPAL -->
 
@@ -81,7 +71,20 @@
                     android:id="@+id/spinnerOrigen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/white"
+                    />
+
+                <!-- BOTON INTERCAMBIAR -->
+
+                <Button
+                    android:id="@+id/btnIntercambiar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="🔄"
+                     />
 
                 <!-- MONEDA DESTINO -->
 
@@ -97,7 +100,8 @@
                     android:id="@+id/spinnerDestino"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/white"/>
 
                 <!-- SWITCH -->
 
@@ -113,10 +117,11 @@
                 <!-- SEEKBAR -->
 
                 <TextView
+                    android:id="@+id/txtNivelMultiplicador"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/txt_seekbar"
+                    android:text="@string/txt_seekbar_inicial"
                     android:textColor="#FFFFFF" />
 
                 <SeekBar
@@ -149,17 +154,7 @@
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
-                <!-- BOTON INTERCAMBIAR -->
 
-                <Button
-                    android:id="@+id/btnIntercambiar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#FF9800"
-                    android:text="@string/btn_intercambiar"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
 
                 <!-- BOTON LIMPIAR -->
 
@@ -181,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:gravity="center"
-                    android:text="@string/txt_resultado"
+                    android:text="@string/txt_resultado_inicial"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
                     android:textStyle="bold" />

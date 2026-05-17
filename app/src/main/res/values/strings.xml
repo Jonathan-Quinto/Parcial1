@@ -17,12 +17,14 @@
     <string name="btn_intercambiar">Intercambiar Monedas</string>
 
     <!-- TEXTOS -->
-
-    <string name="txt_resultado">Resultado:</string>
+    <string name="txt_resultado_inicial">Resultado:</string>
+    <string name="txt_resultado_final">%1$s %2$s → %3$s %4$s</string>
     <string name="txt_moneda_origen">Moneda Origen</string>
     <string name="txt_moneda_destino">Moneda Destino</string>
-    <string name="txt_sonido">Activar Sonido</string>
-    <string name="txt_seekbar">Nivel de conversión</string>
+    <string name="txt_sonido">Sonido ON</string>
+    <string name="txt_sonido_desactivado">Sonido OFF</string>
+    <string name="txt_seekbar_inicial">Nivel de conversión: 1.00x</string>
+    <string name="txt_seekbar_valor">Nivel de conversión: %1$.2fx</string>
 
     <!-- MENSAJES -->
 

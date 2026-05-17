@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seekBarNivel: SeekBar
     private lateinit var progressBar: ProgressBar
     private lateinit var txtResultado: TextView
+    private lateinit var txtNivelMultiplicador: TextView
 
     // ─── DATOS ────────────────────────────────────────────────
     // Tasas de cambio relativas al USD (1 USD = X moneda)
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         configurarSpinners()
         configurarSeekBar()
         configurarBotones()
+        configurarSwitch()
     }
 
     // ─── INICIALIZAR VISTAS ───────────────────────────────────
@@ -90,15 +93,16 @@ class MainActivity : AppCompatActivity() {
         seekBarNivel    = findViewById(R.id.seekBarNivel)
         progressBar     = findViewById(R.id.progressBar)
         txtResultado    = findViewById(R.id.txtResultado)
+        txtNivelMultiplicador    = findViewById(R.id.txtNivelMultiplicador)
     }
 
     // ─── CONFIGURAR SPINNERS ──────────────────────────────────
     private fun configurarSpinners() {
         val adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item_personalizado,
             monedas
-        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_item) }
 
         spinnerOrigen.adapter  = adapter
         spinnerDestino.adapter = adapter
@@ -116,6 +120,7 @@ class MainActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // Mínimo 1% para no multiplicar por cero
                 nivelMultiplicador = if (progress == 0) 0.01 else progress / 100.0
+                txtNivelMultiplicador.text = getString(R.string.txt_seekbar_valor, nivelMultiplicador)
             }
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
@@ -158,23 +163,26 @@ class MainActivity : AppCompatActivity() {
         val tasaDestino = tasas[destino] ?: 1.0
         val montoUSD    = monto / tasaOrigen
         val resultado   = montoUSD * tasaDestino * nivelMultiplicador
+        val montoFormato = df.format(monto)
+        val resultadoFormato = df.format(resultado)
+
 
         val codigoOrigen  = origen.take(3)
         val codigoDestino = destino.take(3)
-        txtResultado.text =
-            "${df.format(monto)} $codigoOrigen  →  ${df.format(resultado)} $codigoDestino"
+        txtResultado.text = getString( R.string.txt_resultado_final,montoFormato,codigoOrigen, resultadoFormato, codigoDestino)
 
         animarProgressBar()
 
-        if (switchSonido.isChecked) reproducirSonido()
-
+        if (switchSonido.isChecked) {
+            reproducirSonido()
+        }
         mostrarToast(getString(R.string.msg_conversion_realizada))
     }
 
     // ─── LIMPIAR ──────────────────────────────────────────────
     private fun limpiar() {
         edtMonto.text.clear()
-        txtResultado.text = getString(R.string.txt_resultado)
+        txtResultado.text = getString(R.string.txt_resultado_inicial)
         progressBar.progress = 0
         // Resetear SeekBar a 100 para que coincida con multiplicador = 1.0
         seekBarNivel.progress = 100
@@ -190,7 +198,13 @@ class MainActivity : AppCompatActivity() {
         val posDestino = spinnerDestino.selectedItemPosition
         spinnerOrigen.setSelection(posDestino)
         spinnerDestino.setSelection(posOrigen)
-        mostrarToast(getString(R.string.msg_monedas_intercambiadas))
+        if(edtMonto.text.isNotEmpty()){
+            btnConvertir.performClick()
+            mostrarToast(getString(R.string.msg_monedas_intercambiadas))
+        }
+        else{
+            mostrarToast(getString(R.string.msg_ingrese_monto))
+        }
     }
 
     // ─── ANIMACIÓN PROGRESSBAR ────────────────────────────────
@@ -218,6 +232,24 @@ class MainActivity : AppCompatActivity() {
             Handler(Looper.getMainLooper()).postDelayed({ toneGen.release() }, 300)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    private fun configurarSwitch() {
+        // 1. Establecemos el texto inicial según el estado por defecto
+        actualizarTextoSwitch(switchSonido.isChecked)
+
+        // 2. Configuramos el listener para cambios futuros
+        switchSonido.setOnCheckedChangeListener { _, isChecked ->
+            actualizarTextoSwitch(isChecked)
+        }
+    }
+
+    private fun actualizarTextoSwitch(estaActivado: Boolean) {
+        switchSonido.text = if (estaActivado) {
+            getString(R.string.txt_sonido)
+        } else {
+            getString(R.string.txt_sonido_desactivado)
         }
     }
 
