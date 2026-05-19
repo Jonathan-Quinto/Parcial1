@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartCurrencyConverter</string>
+    <string name="logoDescripcion">App Logo</string>
+    <string name="titulo_app">Smart Currency Converter</string>
+    <string name="hint_monto">Enter the amount</string>
+    <string name="btn_convertir">Convert</string>
+    <string name="btn_limpiar">Clear</string>
+    <string name="btn_intercambiar">Currency Exchange</string>
+    <string name="txt_resultado_inicial">Result:</string>
+    <string name="txt_moneda_origen">Origin Currency</string>
+    <string name="txt_moneda_destino">Destiny Currency</string>
+    <string name="txt_sonido">Sound ON</string>
+    <string name="txt_sonido_desactivado">Soun OFF</string>
+    <string name="txt_seekbar_inicial">Conversion level: 1.00x</string>
+    <string name="txt_seekbar_valor">Conversión level: %1$.2fx</string>
+    <string name="msg_ingrese_monto">Enter the amount</string>
+    <string name="msg_valor_invalido">Enter a valid value greater than zero</string>
+    <string name="msg_monedas_diferentes">Choose different currencies</string>
+    <string name="msg_conversion_realizada">Conversion completed</string>
+    <string name="msg_campos_limpiados">Cleared fields</string>
+    <string name="msg_monedas_intercambiadas">Currency exchange</string>
+    <string name="txt_idioma">Language</string>
+    <string name="txt_tema">Dark Mode</string>
+    <string name="txtVideo">Local Video</string>
+</resources>

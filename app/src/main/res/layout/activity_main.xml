@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#101820"
+    android:background="?android:attr/colorBackground"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -14,19 +14,16 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-
         <!-- Logo -->
-
-        <!-- TITULO -->
-
         <ImageView
             android:id="@+id/logo"
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:contentDescription="@string/logoDescripcion"
-            app:srcCompat="@drawable/logo_app" />
+            app:srcCompat="@drawable/logo_app_png" />
 
+        <!-- TITULO -->
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
@@ -34,7 +31,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:text="@string/titulo_app"
-            android:textColor="#FFFFFF"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -45,9 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="#1E2A38"
+            app:cardBackgroundColor="?attr/colorBackgroundFloating"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,73 +53,172 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- MONTO -->
-
-                <EditText
-                    android:id="@+id/edtMonto"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#4FC3F7"
-                    android:hint="@string/hint_monto"
-                    android:inputType="numberDecimal"
-                    android:padding="12dp"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#B0BEC5" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="15dp">
+
+                    <!-- SECCIÓN IDIOMA (Izquierda) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/txtIdioma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_idioma"
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textStyle="bold"
+                            android:textSize="14sp" />
+
+                        <Button
+                            android:id="@+id/btnIdiomaES"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:text="🇪🇸"
+                            android:textSize="18sp"
+                            android:minWidth="40dp"
+                            android:padding="0dp" />
+
+                        <Button
+                            android:id="@+id/btnIdiomaEN"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:text="🇺🇸"
+                            android:textSize="18sp"
+                            android:minWidth="40dp"
+                            android:padding="0dp" />
+                    </LinearLayout>
+
+                    <!-- SECCIÓN MODO OSCURO (Derecha) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:orientation="horizontal"
+                        android:gravity="end|center_vertical">
+
+                    <TextView
+                        android:id="@+id/txtTema"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/txt_tema"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchTema"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumbTint="#00BCD4"
+                        app:trackTint="#4FC3F7" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <!-- MONEDA ORIGEN -->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:text="@string/txt_moneda_origen"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spinnerOrigen"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/white" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerOrigen"
+                        android:layout_width="130dp"
+                        android:layout_height="48dp"
+                        android:paddingRight="20dp"/>
+                    <!-- MONTO -->
+                    <EditText
+                        android:id="@+id/edtMonto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#4FC3F7"
+                        android:hint="@string/hint_monto"
+                        android:inputType="numberDecimal"
+                        android:padding="12dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textColorHint="#B0BEC5" />
+
+                </LinearLayout>
 
                 <!-- BOTON INTERCAMBIAR -->
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnIntercambiar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="🔄" />
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Intercambiar monedas"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_intercambiar" />
 
                 <!-- MONEDA DESTINO -->
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:text="@string/txt_moneda_destino"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spinnerDestino"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/white" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerDestino"
+                        android:layout_width="130dp"
+                        android:layout_height="48dp" />
+
+                    <!-- RESULTADO -->
+                    <TextView
+                        android:id="@+id/txtResultado"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/txt_resultado_inicial"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <!-- SWITCH -->
 
-                <Switch
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switchSonido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:checked="true"
                     android:text="@string/txt_sonido"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <!-- SEEKBAR -->
 
@@ -131,14 +228,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/txt_seekbar_inicial"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <SeekBar
                     android:id="@+id/seekBarNivel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="100"
-                    android:progress="50" />
+                    android:progress="0" />
 
                 <!-- PROGRESSBAR -->
 
@@ -151,26 +248,13 @@
                     android:max="100"
                     android:progress="0" />
 
-                <!-- RESULTADO -->
-
-                <TextView
-                    android:id="@+id/txtResultado"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    android:text="@string/txt_resultado_inicial"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
                 <!-- BOTON CONVERTIR -->
 
                 <Button
                     android:id="@+id/btnConvertir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="25dp"
                     android:backgroundTint="#00BCD4"
                     android:text="@string/btn_convertir"
                     android:textColor="#FFFFFF"
@@ -193,6 +277,26 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtVideo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="#000000"
+            app:use_controller="true"
+            app:resize_mode="fit" />
 
     </LinearLayout>
 

@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Mismo nombre de tema, pero valores para la noche -->
+    <style name="Theme.ConversionCapital" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cyan_app</item>
+        <item name="colorSecondary">@color/light_blue_app</item>
+        <item name="android:colorBackground">@color/fondo_oscuro</item>
+        <item name="colorBackgroundFloating">@color/tarjeta_oscuro</item>
+        <item name="android:textColorPrimary">@color/texto_oscuro</item>
+    </style>
+
+    <!-- Splash Screen para la NOCHE -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/fondo_oscuro</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.ConversionCapital</item>
+    </style>
+
+</resources>

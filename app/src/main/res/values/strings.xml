@@ -21,7 +21,7 @@
 
     <!-- TEXTOS -->
     <string name="txt_resultado_inicial">Resultado:</string>
-    <string name="txt_resultado_final">%1$s %2$s → %3$s %4$s</string>
+    <string name="txt_resultado_final" translatable="false">%1$s %2$s</string>
     <string name="txt_moneda_origen">Moneda Origen</string>
     <string name="txt_moneda_destino">Moneda Destino</string>
     <string name="txt_sonido">Sonido ON</string>
@@ -31,18 +31,12 @@
 
     <!-- MENSAJES -->
 
-    <string name="msg_ingrese_monto">Ingrese un monto</string>
-    <string name="msg_valor_invalido">
-        Ingrese un valor válido mayor que cero
-    </string>
+    <string name="msg_ingrese_monto">Ingrese el monto</string>
+    <string name="msg_valor_invalido">"         Ingrese un valor válido mayor que cero     "</string>
 
-    <string name="msg_monedas_diferentes">
-        Seleccione monedas diferentes
-    </string>
+    <string name="msg_monedas_diferentes">"         Seleccione monedas diferentes     "</string>
 
-    <string name="msg_conversion_realizada">
-        Conversión realizada
-    </string>
+    <string name="msg_conversion_realizada">"         Conversión realizada     "</string>
 
     <string name="msg_campos_limpiados">
         Campos limpiados
@@ -51,5 +45,8 @@
     <string name="msg_monedas_intercambiadas">
         Monedas intercambiadas
     </string>
+    <string name="txt_idioma">Idioma</string>
+    <string name="txt_tema">Modo oscuro</string>
+    <string name="txtVideo">Video Local</string>
 
 </resources>

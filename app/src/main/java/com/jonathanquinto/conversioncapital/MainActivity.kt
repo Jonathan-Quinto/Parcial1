@@ -1,6 +1,5 @@
 package com.jonathanquinto.conversioncapital
 
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -8,10 +7,13 @@ import android.os.Looper
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import androidx.cardview.widget.CardView
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,12 +23,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerDestino: Spinner
     private lateinit var btnConvertir: Button
     private lateinit var btnLimpiar: Button
-    private lateinit var btnIntercambiar: Button
-    private lateinit var switchSonido: Switch
+    private lateinit var btnIntercambiar: ImageButton
+    private lateinit var btnIdiomaEn: Button
+    private lateinit var btnIdiomaEs: Button
+    private lateinit var switchSonido: SwitchCompat
+    private lateinit var switchTema: SwitchCompat
     private lateinit var seekBarNivel: SeekBar
     private lateinit var progressBar: ProgressBar
     private lateinit var txtResultado: TextView
     private lateinit var txtNivelMultiplicador: TextView
+    private lateinit var playerView: PlayerView
+    private var player: ExoPlayer? = null
 
     // ─── DATOS ────────────────────────────────────────────────
     // Tasas de cambio relativas al USD (1 USD = X moneda)
@@ -71,6 +78,8 @@ class MainActivity : AppCompatActivity() {
 
     // ─── LIFECYCLE ────────────────────────────────────────────
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Splash Screen
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -79,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         configurarSeekBar()
         configurarBotones()
         configurarSwitch()
+        configurarSwitchTema()
     }
 
     // ─── INICIALIZAR VISTAS ───────────────────────────────────
@@ -89,20 +99,71 @@ class MainActivity : AppCompatActivity() {
         btnConvertir    = findViewById(R.id.btnConvertir)
         btnLimpiar      = findViewById(R.id.btnLimpiar)
         btnIntercambiar = findViewById(R.id.btnIntercambiar)
+        btnIdiomaEs = findViewById(R.id.btnIdiomaES)
+        btnIdiomaEn = findViewById(R.id.btnIdiomaEN)
         switchSonido    = findViewById(R.id.switchSonido)
+        switchTema = findViewById(R.id.switchTema)
         seekBarNivel    = findViewById(R.id.seekBarNivel)
         progressBar     = findViewById(R.id.progressBar)
         txtResultado    = findViewById(R.id.txtResultado)
         txtNivelMultiplicador    = findViewById(R.id.txtNivelMultiplicador)
+        playerView = findViewById(R.id.playerView)
+    }
+
+    // Inicializar reproductor
+    private fun inicializarReproductor() {
+        if (player == null) {
+            player = ExoPlayer.Builder(this).build().also { exoPlayer ->
+                playerView.player = exoPlayer
+
+                // Video de prueba en MP4 (puedes cambiarlo por tu URL o recurso local)
+                val pathLocal = "android.resource://$packageName/${R.raw.video_local}"
+                val mediaItem = MediaItem.fromUri(pathLocal)
+
+                exoPlayer.setMediaItem(mediaItem)
+                exoPlayer.prepare()
+                exoPlayer.playWhenReady = false // No inicia automáticamente, espera el toque del usuario
+            }
+        }
+    }
+
+    private fun liberarReproductor() {
+        player?.let { exoPlayer ->
+            exoPlayer.release()
+            player = null
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        inicializarReproductor()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (false || player == null) {
+            inicializarReproductor()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        liberarReproductor()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Limpieza absoluta si la app se cierra por completo
+        liberarReproductor()
     }
 
     // ─── CONFIGURAR SPINNERS ──────────────────────────────────
     private fun configurarSpinners() {
         val adapter = ArrayAdapter(
             this,
-            R.layout.spinner_item_personalizado,
+            android.R.layout.simple_spinner_item,
             monedas
-        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_item) }
+        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         spinnerOrigen.adapter  = adapter
         spinnerDestino.adapter = adapter
@@ -132,6 +193,20 @@ class MainActivity : AppCompatActivity() {
         btnConvertir.setOnClickListener    { convertir() }
         btnLimpiar.setOnClickListener      { limpiar() }
         btnIntercambiar.setOnClickListener { intercambiar() }
+        btnIdiomaEn.setOnClickListener { idiomaEn() }
+        btnIdiomaEs.setOnClickListener { idiomaES() }
+    }
+
+    // ─── Idioma ────────────────────────────────────────────
+    private fun idiomaEn(){
+        androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+            androidx.core.os.LocaleListCompat.forLanguageTags("en")
+        )
+    }
+    private fun idiomaES(){
+        androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+            androidx.core.os.LocaleListCompat.forLanguageTags("es")
+        )
     }
 
     // ─── CONVERTIR ────────────────────────────────────────────
@@ -163,13 +238,12 @@ class MainActivity : AppCompatActivity() {
         val tasaDestino = tasas[destino] ?: 1.0
         val montoUSD    = monto / tasaOrigen
         val resultado   = montoUSD * tasaDestino * nivelMultiplicador
-        val montoFormato = df.format(monto)
         val resultadoFormato = df.format(resultado)
 
 
-        val codigoOrigen  = origen.take(3)
+
         val codigoDestino = destino.take(3)
-        txtResultado.text = getString( R.string.txt_resultado_final,montoFormato,codigoOrigen, resultadoFormato, codigoDestino)
+        txtResultado.text = getString( R.string.txt_resultado_final, resultadoFormato, codigoDestino)
 
         animarProgressBar()
 
@@ -256,8 +330,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun configurarSwitch() {
         // 1. Establecemos el texto inicial según el estado por defecto
         actualizarTextoSwitch(switchSonido.isChecked)
@@ -273,6 +345,41 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.txt_sonido)
         } else {
             getString(R.string.txt_sonido_desactivado)
+        }
+    }
+
+    // Modo oscuro
+
+    private fun configurarSwitchTema() {
+        val prefs = getSharedPreferences("config_tema", MODE_PRIVATE)
+
+        // 1. Preguntamos a las SharedPreferences si hay una elección manual guardada
+        val modoGuardado = prefs.getInt("modo_noche", androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        if (modoGuardado == androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+            // DETECCIÓN REAL DEL TELÉFONO: Si está en "Seguir al sistema", leemos el UI_MODE del hardware
+            val uiModeActual = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+            switchTema.isChecked = uiModeActual == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        } else {
+            // Si el usuario ya movió el switch manualmente en el pasado, respetamos ese valor
+            switchTema.isChecked = modoGuardado == androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+        }
+
+        // 2. El listener para cuando el usuario mueva el Switch con el dedo
+        switchTema.setOnCheckedChangeListener { _, isChecked ->
+            val nuevoModo = if (isChecked) {
+                androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+            }
+
+            // Guardamos de forma persistente la nueva elección
+            prefs.edit().putInt("modo_noche", nuevoModo).apply()
+
+            // Aplicamos el cambio de tema con un mini delay para que la palanca termine de moverse
+            Handler(Looper.getMainLooper()).postDelayed({
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(nuevoModo)
+            }, 120)
         }
     }
 

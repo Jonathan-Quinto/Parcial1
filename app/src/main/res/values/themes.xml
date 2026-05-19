@@ -2,13 +2,24 @@
 <resources>
 
     <!-- Tema principal compatible con AppCompatActivity -->
-    <style name="Theme.ConversionCapital" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#00BCD4</item>
-        <item name="colorPrimaryVariant">#0097A7</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#FF9800</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="android:windowBackground">#101820</item>
+    <style name="Theme.ConversionCapital" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cyan_app</item>
+        <item name="colorSecondary">@color/light_blue_app</item>
+        <item name="android:colorBackground">@color/fondo_claro</item>
+        <item name="colorBackgroundFloating">@color/tarjeta_claro</item>
+        <item name="android:textColorPrimary">@color/texto_claro</item>
+    </style>
+
+    <!-- Tema personalizado para el Splash Screen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- El color de fondo de la pantalla de inicio -->
+        <item name="windowSplashScreenBackground">#101820</item>
+
+        <!-- El icono central (usaremos el logo vectorizado que reparamos) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+
+        <!-- El tema al que cambiará la app automáticamente cuando termine de cargar -->
+        <item name="postSplashScreenTheme">@style/Theme.ConversionCapital</item>
     </style>
 
 </resources>

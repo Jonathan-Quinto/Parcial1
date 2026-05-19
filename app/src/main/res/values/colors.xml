@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Colores base que ya tienes -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="cyan_app">#00BCD4</color>
+    <color name="light_blue_app">#4FC3F7</color>
+
+    <!-- PALETA PARA MODO OSCURO (Los que ya usas) -->
+    <color name="fondo_oscuro">#101820</color>
+    <color name="tarjeta_oscuro">#1E2A38</color>
+    <color name="texto_oscuro">#FFFFFF</color>
+
+    <!-- PALETA PARA MODO CLARO (Nuevos colores para el día) -->
+    <color name="fondo_claro">#F5F7FA</color>
+    <color name="tarjeta_claro">#FFFFFF</color>
+    <color name="texto_claro">#101820</color>
 </resources>
