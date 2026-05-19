@@ -14,7 +14,18 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+
+        <!-- Logo -->
+
         <!-- TITULO -->
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/logoDescripcion"
+            app:srcCompat="@drawable/logo_app" />
 
         <TextView
             android:id="@+id/txtTitulo"
@@ -72,8 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/white"
-                    />
+                    android:backgroundTint="@color/white" />
 
                 <!-- BOTON INTERCAMBIAR -->
 
@@ -83,8 +93,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="🔄"
-                     />
+                    android:text="🔄" />
 
                 <!-- MONEDA DESTINO -->
 
@@ -101,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/white"/>
+                    android:backgroundTint="@color/white" />
 
                 <!-- SWITCH -->
 
@@ -142,6 +151,19 @@
                     android:max="100"
                     android:progress="0" />
 
+                <!-- RESULTADO -->
+
+                <TextView
+                    android:id="@+id/txtResultado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:text="@string/txt_resultado_inicial"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
                 <!-- BOTON CONVERTIR -->
 
                 <Button
@@ -153,7 +175,6 @@
                     android:text="@string/btn_convertir"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
-
 
 
                 <!-- BOTON LIMPIAR -->
@@ -168,18 +189,6 @@
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
-                <!-- RESULTADO -->
-
-                <TextView
-                    android:id="@+id/txtResultado"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    android:text="@string/txt_resultado_inicial"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
 
             </LinearLayout>
 

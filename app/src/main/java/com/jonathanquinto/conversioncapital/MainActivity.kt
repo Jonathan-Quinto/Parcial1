@@ -1,7 +1,7 @@
 package com.jonathanquinto.conversioncapital
 
 import android.media.AudioManager
-import android.media.ToneGenerator
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         animarProgressBar()
 
         if (switchSonido.isChecked) {
-            reproducirSonido()
+            reproducirSonidoConversion()
         }
         mostrarToast(getString(R.string.msg_conversion_realizada))
     }
@@ -189,6 +189,9 @@ class MainActivity : AppCompatActivity() {
         nivelMultiplicador = 1.0
         spinnerOrigen.setSelection(monedas.indexOf("USD 🇺🇸"))
         spinnerDestino.setSelection(monedas.indexOf("EUR 🇪🇺"))
+        if(switchSonido.isChecked){
+            reproducirSonidoLimpiar()
+        }
         mostrarToast(getString(R.string.msg_campos_limpiados))
     }
 
@@ -225,15 +228,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ─── SONIDO ───────────────────────────────────────────────
-    private fun reproducirSonido() {
+    private fun reproducirSonidoConversion() {
         try {
-            val toneGen = ToneGenerator(AudioManager.STREAM_MUSIC, 80)
-            toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 150)
-            Handler(Looper.getMainLooper()).postDelayed({ toneGen.release() }, 300)
+            val mediaPlayer = MediaPlayer.create(this, R.raw.sonido_conversion)
+
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.release()
+            }
+
+            mediaPlayer.start()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
+    private fun reproducirSonidoLimpiar(){
+        try {
+            val mediaPlayer = MediaPlayer.create(this, R.raw.sonido_limpiar)
+
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.release()
+            }
+
+            mediaPlayer.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
 
     private fun configurarSwitch() {
         // 1. Establecemos el texto inicial según el estado por defecto
