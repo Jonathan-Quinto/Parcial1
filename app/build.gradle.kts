@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.jonathanquinto.conversioncapital"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.jonathanquinto.conversioncapital"
@@ -40,6 +40,8 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation("androidx.media3:media3-exoplayer:1.10.0")
+    implementation("androidx.media3:media3-ui:1.10.0")
     implementation(libs.material)
     implementation(libs.cardview)
     implementation(libs.constraintlayout)

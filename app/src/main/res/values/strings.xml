@@ -1,6 +1,9 @@
 <resources>
 
-    <string name="app_name">ConversionCapital</string>
+    <string name="app_name">SmartCurrencyConverter</string>
+
+    <!-- Logo -->
+    <string name="logoDescripcion">Logo de la App</string>
 
     <!-- TITULOS -->
 
