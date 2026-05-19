@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         "CNY 🇨🇳" to 7.2458,
         "MXN 🇲🇽" to 17.1500,
         "BRL 🇧🇷" to 5.0820,
-        "COP 🇨🇴" to 3968.00,
+        "COP 🇨🇴" to 3805.67,
         "ARS 🇦🇷" to 878.50,
         "CLP 🇨🇱" to 942.30,
         "PEN 🇵🇪" to 3.7200,
@@ -182,6 +182,10 @@ class MainActivity : AppCompatActivity() {
         spinnerOrigen.setSelection(monedas.indexOf("USD 🇺🇸"))
         spinnerDestino.setSelection(monedas.indexOf("EUR 🇪🇺"))
         mostrarToast(getString(R.string.msg_campos_limpiados))
+
+        if (switchSonido.isChecked) reproducirSonido()
+
+        mostrarToast(getString(R.string.msg_campos_limpiados))
     }
 
     // ─── INTERCAMBIAR ─────────────────────────────────────────
@@ -190,6 +194,9 @@ class MainActivity : AppCompatActivity() {
         val posDestino = spinnerDestino.selectedItemPosition
         spinnerOrigen.setSelection(posDestino)
         spinnerDestino.setSelection(posOrigen)
+        mostrarToast(getString(R.string.msg_monedas_intercambiadas))
+        if (switchSonido.isChecked) reproducirSonido()
+
         mostrarToast(getString(R.string.msg_monedas_intercambiadas))
     }
 

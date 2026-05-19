@@ -159,7 +159,8 @@
                     android:backgroundTint="#FF9800"
                     android:text="@string/btn_intercambiar"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:soundEffectsEnabled="true"/>
 
                 <!-- BOTON LIMPIAR -->
 
@@ -171,7 +172,8 @@
                     android:backgroundTint="#F44336"
                     android:text="@string/btn_limpiar"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:soundEffectsEnabled="true"/>
 
                 <!-- RESULTADO -->
 
